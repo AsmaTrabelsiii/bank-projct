@@ -3,44 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>bank-site</title>
+    <title>Document</title>
     <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css"
+      integrity="sha512-x9WwyMYBnlXMNQ6kQ/Lyzu1NqIhLQKL5Oq6xByfXuRj7s9CskyCbLv/1IjqzJmXwFXWr0ov6jBV7Qbc0hh9nHg=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
   </head>
-
   <body>
     <!-- ///////////// header ///////// -->
     <header>
       <h3 class="welcome">Log in to get started</h3>
 
-      <img height="50px" src="logo (1).png" alt="" />
+      <img height="50px" src="./logo.png" alt="" />
 
       <div class="auth-header">
         <input class="user" placeholder="USER" type="text" />
         <input class="pin" placeholder="PIN" type="number" />
-        <span class="btn-login"
-          ><i class="fa-solid fa-arrow-right-long"></i
-        ></span>
+        <span class="btn-login">→</span>
       </div>
     </header>
-    <!-- ////////////////////////main/////////////////////// -->
+
     <main>
       <!-- ////// main header //////  -->
       <section class="main-header">
         <div class="current">
           <h3>Current balance</h3>
-          <span>as of 10/02/2025</span>
+          <p>as of 10/02/2025</p>
         </div>
-        <h1 class="amount">0000 <i class="fa-solid fa-euro-sign"></i></h1>
+        <h1 class="amount">
+          <span class="balance">0000</span>
+          <i class="fa-solid fa-euro-sign"></i>
+        </h1>
       </section>
 
       <!-- /////////////////// section of  movements  ////////// -->
+
+      <!-- //////////// left //////////// -->
 
       <section class="movements-container">
         <!-- /////////////// left /////// -->
@@ -101,18 +103,23 @@
           <span class="in"
             >IN
             <span class="average-in"
-              >0000 <i class="fa-solid fa-euro-sign"></i></span
-          ></span>
+              >0000</span>
+              <span>
+                <i class="fa-solid fa-euro-sign"></i> </span></span
+          >
           <span class="out"
             >OUT
             <span class="average-out"
-              >0000 <i class="fa-solid fa-euro-sign"></i></span
-          ></span>
+              >0000</span>
+              <span>
+                <i class="fa-solid fa-euro-sign"></i> </span></span
+          >
           <span class="interest"
             >INTEREST
             <span class="average-interest"
-              >0000 <i class="fa-solid fa-euro-sign"></i></span
-          ></span>
+              >0000 </span><span>
+                <i class="fa-solid fa-euro-sign"></i> </span></span
+          >
         </div>
         <p class="sort"><i class="fa-solid fa-arrow-down"></i> SORT</p>
         <p class="logout">
