@@ -301,6 +301,12 @@ footer {
 .logout-timer {
   font-weight: 800;
 }
+
+
+.btn-login {
+  cursor: pointer;
+ border: none;
+}
 /* main {
 transition: 1s;
 } */

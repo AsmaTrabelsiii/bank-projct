@@ -1,7 +1,5 @@
+
 "use strict";
-
-////////
-
 
 ///// dummy data ::
 const account1 = {
@@ -10,6 +8,8 @@ const account1 = {
   interestRate: 1.2,
   pin: 1111,
 };
+
+////
 
 const account2 = {
   owner: "Jessica Davis",
@@ -34,18 +34,77 @@ const account4 = {
 
 const accounts = [account1, account2, account3, account4];
 
+///// import elements ::
 
 const movementsContainer = document.querySelector(".left");
 
+const balanceAccount = document.querySelector(".balance");
 
+const inComes = document.querySelector(".average-in");
+const outMoney = document.querySelector(".average-out");
+const interest = document.querySelector(".average-interest");
+
+const userNameInput = document.querySelector(".user");
+const pinInput = document.querySelector(".pin");
+const btnLogin = document.querySelector(".btn-login");
+const welcomeMessage = document.querySelector(".welcome");
+const app = document.querySelector("main");
+
+///////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
+const displayUserName = function (arr) {
+  arr.forEach((person) => {
+    person.userName = person.owner
+      .toLowerCase()
+      .split(" ")
+      .map((ele) => ele[0])
+      .join("");
+  });
+};
+
+displayUserName(accounts);
+
+///// display summary functionnality ::
+
+const calcDisplaySummary = function (cur) {
+  const inc = cur.movements
+    .filter((ele) => ele > 0)
+    .reduce((acc, num) => acc + num, 0);
+  //// u.u.i :
+  inComes.textContent = inc;
+  const outc = cur.movements
+    .filter((ele) => ele < 0)
+    .reduce((acc, ele) => ele + acc, 0);
+
+  /// u.u.i :
+  outMoney.textContent = Math.abs(outc);
+
+  const int = cur.movements
+    .filter((mov) => mov > 0)
+    .map((deposit, i, arr) => {
+    
+      return (deposit * cur.interestRate) / 100;
+    })
+    .filter((ele, x, y) => {
+     
+      return ele > 1;
+    })
+    .reduce((acc, ele) => acc + ele, 0);
+  
+
+  ///// u.u.i :
+  interest.textContent = int;
+};
+
+// calcDisplaySummary(account3.movements, account3.interestRate);
 
 ///// display movements  :::
 
-const displayMovements = function (arr) {
-  // bch tji 3alawl fer8a we ki nhb n3ml insertion lhaja mtt5altch m3a li 9blha 
+const displayMovements = function (cur) {
   movementsContainer.innerHTML = "";
 
-  arr.forEach(function (mov, i) {
+  cur.movements.forEach(function (mov, i) {
     let type = mov > 0 ? "deposit" : "withdraw";
 
     let html = `
@@ -59,55 +118,60 @@ const displayMovements = function (arr) {
             </p>
           </div>
     `;
-// block html haka win bch t7oto fi movementscontainer
+
     movementsContainer.insertAdjacentHTML("afterbegin", html);
   });
 };
-displayMovements(account2.movements);
+
+// displayMovements(account3.movements);
 
 ////// display blance :::
-const balanceAccount = document.querySelector(".balance");
 
-const displayBalance = function (arr) {
-  const balance = arr.reduce((acc, ele) => acc + ele, 0);
+const displayBalance = function (cur) {
+  const balance = cur.movements.reduce((acc, ele) => acc + ele, 0);
   ///// update ui ::
   balanceAccount.textContent = balance;
 };
 
-displayBalance(account2.movements);
+// displayBalance(account3.movements);
 
-///////
-let In = document.querySelector(".average-in")
-let out=document.querySelector(".average-out")
-let interestt=document.querySelector(".average-interest")
-function deposit(arr){
-   const positive=arr.filter(ele=>ele>0)
-   const resultIn = positive.reduce((acc,ele)=>  acc+ele,0)
-   In.textContent=resultIn
+////////// authentication functionnality
+let currentAccount;
+btnLogin.addEventListener("click", function (e) {
+  e.preventDefault(); 
+  currentAccount = accounts.find((acc) => acc.userName === userNameInput.value);
+  
+  if (currentAccount.pin === Number(pinInput.value)) {
+    welcomeMessage.textContent = `welcome back ${currentAccount.owner.split(" ")[0]}`;
+    app.style.opacity = 1;
+    displayMovements(currentAccount);
+    calcDisplaySummary(currentAccount);
+    displayBalance(currentAccount);
+    userNameInput.value = "";
+    pinInput.value = "";
+  } else {
+    alert("wrong email or password !!!");
+  }
+});
+//////////////////////////////////
+/////////////////////////////////
+const transferto=document.querySelector(".transfert-input")
+const transfertAmount=document.querySelector(".amount-transfert-box-input")
+const transfertBtn=document.querySelector(".btn-transfert-box")
+transfertBtn.addEventListener("click",function(e){
+  e.preventDefault()
+  if (balanceAccount.textContent>=transfertAmount.value && exist && userNameInput.value!==transferto.value )
+  {
+    prompt(`the transfert succced`)
+  }
+  else 
+    alert("erreur")
+})
+
+
+
+function exist(arr){
+  if(arr.find((ele)=>ele.owner===transferto.value)
+  ){return true}
 
 }
-deposit(account2.movements)
-/////
-let Out = document.querySelector(".average-out")
-function whithdrow(arr){
-   const negative=arr.filter(ele=>ele<0)
-   const resultOn = negative.reduce((acc,ele)=>  acc+ele,0)
-   Out.textContent= Math.abs(resultOn) 
-
-}
-whithdrow(account2.movements)
-// **************************************
-////
-//  const valeur=account2.interestRate
-//  function interest(arr){
-//     const positiveIn=arr.filter(ele=>ele>0)
-// const porcentage=positiveIn.map((ele)=>(ele*valeur)/100)
-// const low=porcentage.map((ele)=>ele>1)
-//    const resultInt = low.reduce((acc,ele)=>  acc+ele,0)
-//    interestt.textContent= resultInt
-
-// }
-//  interest(account2.movements)
-
-////
-
